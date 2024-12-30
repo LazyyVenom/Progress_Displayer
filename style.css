@@ -1,8 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    --bg-color: #0f172a;
+    --text-color: #e2e8f0;
+    --container-bg: #1e293b;
+    --shadow: rgba(0, 0, 0, 0.25) 0px 4px 12px;
+}
+
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,105 +19,89 @@ body {
 }
 
 h1 {
-    font-size: 2.8em;
-    color: #1a365d;
-    margin: 40px 0;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: clamp(2rem, 5vw, 2.5rem);
     font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1.2;
+    color: var(--text-color);
     text-align: center;
-    background: linear-gradient(45deg, #1a365d, #2c5282);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    margin: 2.5rem 0;
+    transition: all 0.3s ease;
 }
 
 .graph-container {
-    background: white;
+    background: var(--container-bg);
     padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
+    gap: 0.5rem;
     max-width: 900px;
-    margin: 20px;
+    margin: 1rem;
     transition: transform 0.3s ease;
 }
 
-.graph-container:hover {
-    transform: translateY(-5px);
-}
+.day[data-level="1"] { background-color: #475569; }
+.day[data-level="2"] { background-color: #64748b; }
+.day[data-level="3"] { background-color: #94a3b8; }
+.day[data-level="4"] { background-color: #cbd5e1; }
+.day[data-level="5"] { background-color: #f1f5f9; }
 
 .day {
-    width: 22px;
-    height: 22px;
-    background-color: #ebedf0;
+    width: 20px;
+    height: 20px;
     border-radius: 4px;
-    position: relative;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease;
     cursor: pointer;
+    position: relative; /* Add this */
 }
-
-.day:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.day[data-level="2"] { background-color: #9ae6b4; }
-.day[data-level="3"] { background-color: #68d391; }
-.day[data-level="4"] { background-color: #48bb78; }
-.day[data-level="5"] { background-color: #2f855a; }
 
 .tooltip {
-    display: none;
+    display: none; /* Change from position: absolute */
     position: absolute;
-    top: -40px;
+    top: -45px; /* Adjust distance from day element */
     left: 50%;
     transform: translateX(-50%);
-    background-color: #2d3748;
-    color: white;
+    background: var(--container-bg);
+    color: var(--text-color);
     padding: 8px 12px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 500;
     white-space: nowrap;
-    z-index: 10;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    z-index: 100;
+    box-shadow: var(--shadow);
+    pointer-events: none;
+}
+
+.day:hover .tooltip {
+    display: block;
 }
 
 .tooltip::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -4px;
     left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: #2d3748 transparent transparent transparent;
-}
-
-.day:hover .tooltip {
-    display: block;
-    opacity: 1;
+    transform: translateX(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: inherit;
 }
 
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2em;
-        margin: 20px 0;
+    h1 { 
+        font-size: 1.75rem;
+        margin: 1.5rem 0;
     }
-    
-    .graph-container {
+    .graph-container { 
         padding: 1rem;
-        gap: 4px;
+        gap: 0.35rem;
     }
-    
-    .day {
-        width: 18px;
-        height: 18px;
+    .day { 
+        width: 15px;
+        height: 15px;
+        border-radius: 3px;
     }
 }
