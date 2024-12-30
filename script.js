@@ -10,6 +10,12 @@ async function updateGraph() {
             const dayElement = document.createElement('div');
             dayElement.classList.add('day');
             dayElement.setAttribute('data-level', item.rating);
+
+            const tooltip = document.createElement('div');
+            tooltip.classList.add('tooltip');
+            tooltip.textContent = `Date: ${item.date}, Rating: ${item.rating}`;
+            dayElement.appendChild(tooltip);
+
             container.appendChild(dayElement);
         });
     } catch (error) {
